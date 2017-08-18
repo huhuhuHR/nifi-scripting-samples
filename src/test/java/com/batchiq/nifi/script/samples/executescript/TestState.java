@@ -19,6 +19,7 @@ import org.apache.nifi.components.state.Scope;
 import org.apache.nifi.components.state.StateManager;
 import org.apache.nifi.components.state.StateMap;
 import org.apache.nifi.processors.script.ExecuteScript;
+import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.TestRunner;
 import org.apache.nifi.util.TestRunners;
 import org.junit.Assert;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class TestState {
+public class TestState extends BaseScriptTest{
 
     /**
      * Demonstrates reading and writing processor state values
@@ -39,9 +40,9 @@ public class TestState {
     public void testStateJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/state/state.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/state/state.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         StateManager stateManager = runner.getStateManager();
@@ -66,9 +67,9 @@ public class TestState {
     public void testStatePython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/state/state.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/state/state.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         StateManager stateManager = runner.getStateManager();

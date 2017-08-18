@@ -17,6 +17,7 @@ package com.batchiq.nifi.script.samples.executescript;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.nifi.processors.script.ExecuteScript;
+import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.LogMessage;
 import org.apache.nifi.util.MockComponentLog;
 import org.apache.nifi.util.MockFlowFile;
@@ -50,9 +51,9 @@ public class TestContent extends BaseScriptTest {
     public void testTransformJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/content/transform.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/transform.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         InputObject inputJsonObject = new InputObject();
@@ -81,9 +82,9 @@ public class TestContent extends BaseScriptTest {
     public void testTransformPython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/content/transform.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/transform.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         InputObject inputJsonObject = new InputObject();
@@ -112,9 +113,9 @@ public class TestContent extends BaseScriptTest {
     public void testSplitJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/content/split.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/split.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         String inputContent = "[";
@@ -146,9 +147,9 @@ public class TestContent extends BaseScriptTest {
     public void testSplitPython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/content/split.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/split.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         String inputContent = "[";
@@ -180,9 +181,9 @@ public class TestContent extends BaseScriptTest {
     public void testAttributesToJsonContentJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/content/attributesToJSON.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/attributesToJSON.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();

@@ -39,6 +39,7 @@ public abstract class BaseScriptTest {
 
     protected final String TEST_RESOURCE_LOCATION = "target/test/resources/";
     protected TestRunner runner;
+    protected final String SCRIPT_ENGINE = "Script Engine";
 
     /**
      * Copies all scripts to the target directory because when they are compiled they can leave unwanted .class files.

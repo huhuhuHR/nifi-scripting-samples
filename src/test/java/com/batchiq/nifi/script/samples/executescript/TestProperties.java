@@ -17,6 +17,7 @@ package com.batchiq.nifi.script.samples.executescript;
 
 import org.apache.nifi.processors.script.ExecuteScript;
 import org.apache.nifi.properties.NiFiPropertiesLoader;
+import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.NiFiProperties;
 import org.apache.nifi.util.TestRunner;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class TestProperties {
+public class TestProperties extends BaseScriptTest {
 
     /**
      * Demonstrates reading values from nifi.properties
@@ -43,9 +44,9 @@ public class TestProperties {
         NiFiProperties nifiProperties = nifiPropertiesLoader.get();
 
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/properties/properties.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/properties/properties.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();
@@ -72,9 +73,9 @@ public class TestProperties {
         NiFiProperties nifiProperties = nifiPropertiesLoader.get();
 
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/properties/properties.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/properties/properties.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();

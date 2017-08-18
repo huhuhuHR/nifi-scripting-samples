@@ -16,6 +16,7 @@
 package com.batchiq.nifi.script.samples.executescript;
 
 import org.apache.nifi.processors.script.ExecuteScript;
+import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.LogMessage;
 import org.apache.nifi.util.MockComponentLog;
 import org.apache.nifi.util.MockFlowFile;
@@ -46,9 +47,9 @@ public class TestLog extends BaseScriptTest {
     public void testLogJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/log/log.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/log/log.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();
@@ -87,9 +88,9 @@ public class TestLog extends BaseScriptTest {
     public void testLogPython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/log/log.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/log/log.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();

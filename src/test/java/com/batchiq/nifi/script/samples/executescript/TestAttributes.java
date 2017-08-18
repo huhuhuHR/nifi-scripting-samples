@@ -16,6 +16,7 @@
 package com.batchiq.nifi.script.samples.executescript;
 
 import org.apache.nifi.processors.script.ExecuteScript;
+import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.MockFlowFile;
 import org.apache.nifi.util.TestRunner;
 import org.apache.nifi.util.TestRunners;
@@ -43,9 +44,9 @@ public class TestAttributes extends BaseScriptTest {
     public void testAttributeAccessJavascript() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "ECMAScript");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/attributes/attributes.js");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "ECMAScript");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/attributes/attributes.js");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();
@@ -69,9 +70,9 @@ public class TestAttributes extends BaseScriptTest {
     public void testAttributesPython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
-        runner.setProperty(ExecuteScript.SCRIPT_ENGINE, "python");
-        runner.setProperty(ExecuteScript.SCRIPT_FILE, "src/test/resources/executescript/attributes/attributes.py");
-        runner.setProperty(ExecuteScript.MODULES, "src/test/resources/executescript");
+        runner.setProperty(SCRIPT_ENGINE, "python");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/attributes/attributes.py");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
         runner.assertValid();
 
         final Map<String, String> attributes = new HashMap<>();
