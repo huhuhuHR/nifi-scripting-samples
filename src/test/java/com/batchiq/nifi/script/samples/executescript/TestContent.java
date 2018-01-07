@@ -106,6 +106,37 @@ public class TestContent extends BaseScriptTest {
     }
 
     /**
+     * Demonstrates transforming the JSON object in an incoming FlowFile to output
+     * @throws Exception
+     */
+    @Test
+    public void testTransformGroovy() throws Exception {
+        final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
+        runner.setValidateExpressionUsage(false);
+        runner.setProperty(SCRIPT_ENGINE, "Groovy");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/content/transform.groovy");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
+        runner.assertValid();
+
+        InputObject inputJsonObject = new InputObject();
+        inputJsonObject.value = 3;
+        ObjectMapper mapper = new ObjectMapper();
+        byte[] jsonBytes = mapper.writeValueAsBytes(inputJsonObject);
+
+        runner.enqueue(jsonBytes);
+        runner.run();
+
+        runner.assertAllFlowFilesTransferred("success", 1);
+        final List<MockFlowFile> successFlowFiles = runner.getFlowFilesForRelationship("success");
+        MockFlowFile result = successFlowFiles.get(0);
+        byte[] flowFileBytes = result.toByteArray();
+
+        OutputObject outputJsonObject = mapper.readValue(flowFileBytes, OutputObject.class);
+        Assert.assertEquals(9, outputJsonObject.value);
+        Assert.assertEquals("Hello", outputJsonObject.message);
+    }
+
+    /**
      * Demonstrates splitting an array in a single incoming FlowFile into multiple output FlowFiles
      * @throws Exception
      */

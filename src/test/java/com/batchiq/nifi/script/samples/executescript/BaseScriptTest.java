@@ -73,7 +73,9 @@ public abstract class BaseScriptTest {
 
     public String getFileContentsAsString(String path) {
         try {
-            return new String(Files.readAllBytes(Paths.get(path)));
+            String rawContent = new String(Files.readAllBytes(Paths.get(path)));
+            String content = rawContent.replace("\r\n", "\n");
+            return content;
         } catch (IOException ioe) {
             return null;
         }

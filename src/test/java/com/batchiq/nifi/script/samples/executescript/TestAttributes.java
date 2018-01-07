@@ -37,7 +37,7 @@ public class TestAttributes extends BaseScriptTest {
     }
 
     /**
-     * Demonstrates logging from within scripts
+     * Demonstrates reading and writing FlowFile attributes from within scripts
      * @throws Exception
      */
     @Test
@@ -63,11 +63,11 @@ public class TestAttributes extends BaseScriptTest {
     }
 
     /**
-     * Demonstrates logging from within scripts
+     * Demonstrates reading and writing FlowFile attributes from within scripts
      * @throws Exception
      */
     @Test
-    public void testAttributesPython() throws Exception {
+    public void testAttributesAccessPython() throws Exception {
         final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
         runner.setValidateExpressionUsage(false);
         runner.setProperty(SCRIPT_ENGINE, "python");
@@ -88,4 +88,29 @@ public class TestAttributes extends BaseScriptTest {
         result.assertAttributeEquals("attribute.two", "2");
     }
 
+    /**
+     * Demonstrates reading and writing FlowFile attributes from within scripts
+     * @throws Exception
+     */
+    @Test
+    public void testAttributeAccessGroovy() throws Exception {
+        final TestRunner runner = TestRunners.newTestRunner(new ExecuteScript());
+        runner.setValidateExpressionUsage(false);
+        runner.setProperty(SCRIPT_ENGINE, "Groovy");
+        runner.setProperty(ScriptingComponentUtils.SCRIPT_FILE, "src/test/resources/executescript/attributes/attributes.groovy");
+        runner.setProperty(ScriptingComponentUtils.MODULES, "src/test/resources/executescript");
+        runner.assertValid();
+
+        final Map<String, String> attributes = new HashMap<>();
+        attributes.put("greeting", "Hello");
+        runner.enqueue("nothing".getBytes(StandardCharsets.UTF_8), attributes);
+        runner.run();
+
+        runner.assertAllFlowFilesTransferred("success", 1);
+        final List<MockFlowFile> successFlowFiles = runner.getFlowFilesForRelationship("success");
+        MockFlowFile result = successFlowFiles.get(0);
+        result.assertAttributeEquals("message", "Hello, Script!");
+        result.assertAttributeEquals("attribute.one", "true");
+        result.assertAttributeEquals("attribute.two", "2");
+    }
 }
