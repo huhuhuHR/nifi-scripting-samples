@@ -15,7 +15,7 @@
  */
 package com.batchiq.nifi.script.samples.executescript;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.apache.nifi.processors.script.ExecuteScript;
 import org.apache.nifi.script.ScriptingComponentUtils;
 import org.apache.nifi.util.LogMessage;
@@ -33,6 +33,8 @@ import java.util.Map;
 
 
 public class TestContent extends BaseScriptTest {
+
+    private static final Gson gson = new Gson();
 
     private static class InputObject {
         public int value;
@@ -58,18 +60,18 @@ public class TestContent extends BaseScriptTest {
 
         InputObject inputJsonObject = new InputObject();
         inputJsonObject.value = 3;
-        ObjectMapper mapper = new ObjectMapper();
-        byte[] jsonBytes = mapper.writeValueAsBytes(inputJsonObject);
+        String inputJson = gson.toJson(inputJsonObject);
 
-        runner.enqueue(jsonBytes);
+        runner.enqueue(inputJson);
         runner.run();
 
         runner.assertAllFlowFilesTransferred("success", 1);
         final List<MockFlowFile> successFlowFiles = runner.getFlowFilesForRelationship("success");
         MockFlowFile result = successFlowFiles.get(0);
         byte[] flowFileBytes = result.toByteArray();
+        String outputJson = new String(flowFileBytes);
 
-        OutputObject outputJsonObject = mapper.readValue(flowFileBytes, OutputObject.class);
+        OutputObject outputJsonObject = gson.fromJson(outputJson, OutputObject.class);
         Assert.assertEquals(9, outputJsonObject.value);
         Assert.assertEquals("Hello", outputJsonObject.message);
     }
@@ -89,18 +91,18 @@ public class TestContent extends BaseScriptTest {
 
         InputObject inputJsonObject = new InputObject();
         inputJsonObject.value = 3;
-        ObjectMapper mapper = new ObjectMapper();
-        byte[] jsonBytes = mapper.writeValueAsBytes(inputJsonObject);
+        String inputJson = gson.toJson(inputJsonObject);
 
-        runner.enqueue(jsonBytes);
+        runner.enqueue(inputJson);
         runner.run();
 
         runner.assertAllFlowFilesTransferred("success", 1);
         final List<MockFlowFile> successFlowFiles = runner.getFlowFilesForRelationship("success");
         MockFlowFile result = successFlowFiles.get(0);
         byte[] flowFileBytes = result.toByteArray();
+        String outputJson = new String(flowFileBytes);
 
-        OutputObject outputJsonObject = mapper.readValue(flowFileBytes, OutputObject.class);
+        OutputObject outputJsonObject = gson.fromJson(outputJson, OutputObject.class);
         Assert.assertEquals(9, outputJsonObject.value);
         Assert.assertEquals("Hello", outputJsonObject.message);
     }
@@ -120,18 +122,18 @@ public class TestContent extends BaseScriptTest {
 
         InputObject inputJsonObject = new InputObject();
         inputJsonObject.value = 3;
-        ObjectMapper mapper = new ObjectMapper();
-        byte[] jsonBytes = mapper.writeValueAsBytes(inputJsonObject);
+        String inputJson = gson.toJson(inputJsonObject);
 
-        runner.enqueue(jsonBytes);
+        runner.enqueue(inputJson);
         runner.run();
 
         runner.assertAllFlowFilesTransferred("success", 1);
         final List<MockFlowFile> successFlowFiles = runner.getFlowFilesForRelationship("success");
         MockFlowFile result = successFlowFiles.get(0);
         byte[] flowFileBytes = result.toByteArray();
+        String outputJson = new String(flowFileBytes);
 
-        OutputObject outputJsonObject = mapper.readValue(flowFileBytes, OutputObject.class);
+        OutputObject outputJsonObject = gson.fromJson(outputJson, OutputObject.class);
         Assert.assertEquals(9, outputJsonObject.value);
         Assert.assertEquals("Hello", outputJsonObject.message);
     }

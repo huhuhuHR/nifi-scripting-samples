@@ -43,11 +43,6 @@
             <version>4.12</version>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.8.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-api</artifactId>
             <version>${nifi.version}</version>
@@ -71,6 +66,11 @@
             <groupId>org.apache.nifi</groupId>
             <artifactId>nifi-scripting-processors</artifactId>
             <version>${nifi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.5</version>
         </dependency>
     </dependencies>
 
