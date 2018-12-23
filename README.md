@@ -18,10 +18,11 @@ Scripts are designed to demonstrate basic ExecuteScript techniques in various la
 | Reading and writing state | | [state.js](src/test/resources/executescript/state/state.js) | [state.py](src/test/resources/executescript/state/state.py) |
 | Parsing URIs | [parse_uri.groovy](src/test/resources/executescript/misc/parse_uri.groovy) | | |
 | Converting XML to JSON | [xmlToJson.groovy](src/test/resources/executescript/content/xml-to-json/xmlToJson.groovy) | | |
+| Date/Time formatting | [datetime.groovy](src/test/resources/executescript/content/datetime.groovy) | [datetime.js](src/test/resources/executescript/content/datetime.js) | |
 
 ## Contributing
 Please help.  These sample scripts are very likely to be buggy, unnecessarily complicated, misguided, downright stupid, or all of the above.
-Please open an issue for bugs and new contributions.
+Issues and pull requests are welcome.
 
 ## License
 Apache License 2.0
